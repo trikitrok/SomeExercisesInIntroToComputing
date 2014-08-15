@@ -36,6 +36,23 @@
 (check-equal? (deep-list-sum (list 1 (list 1))) 2)
 (check-equal? (deep-list-sum (list 1 (list 2 (list 3 (list 4))))) 10)
 
+
+(define (deep-list-accumulate comb base dls)
+  (if (null? dls)
+      base
+      (let [(first-dls (first dls))]
+        (comb (deep-list-accumulate comb base (rest dls))
+           (if (list? first-dls)
+               (deep-list-accumulate comb base first-dls)
+               first-dls)))))
+
+(check-equal? (deep-list-accumulate + 0 '()) 0)
+(check-equal? (deep-list-accumulate + 0 (list (list 1))) 1)
+(check-equal? (deep-list-accumulate + 0 (list (list 1) (list 1))) 2)
+(check-equal? (deep-list-accumulate +  0 (list 1 (list 1))) 2)
+(check-equal? (deep-list-accumulate * 1 (list 1 (list 2 (list 3 (list 4))))) 24)
+
+
 (define (list-append xs ys)
   (if (null? xs)
       ys
