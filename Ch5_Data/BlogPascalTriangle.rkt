@@ -79,3 +79,7 @@
 (check-equal? 
  (pascal-triangle 2) 
  (list (list 1) (list 1 1) (list 1 2 1)))
+
+(check-equal? 
+ (pascal-triangle 4) 
+ (list (list 1) (list 1 1) (list 1 2 1) (list 1 3 3 1) (list 1 4 6 4 1)))
